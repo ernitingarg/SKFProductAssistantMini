@@ -37,7 +37,7 @@ namespace SKFProductAssistant.Function.Products
                 return null;
             }
 
-            var matchedAttribute = QueryHelper.ExtractBestMatchingAttribute(
+            var matchedAttribute = QueryUtils.ExtractBestMatchingAttribute(
                 productName,
                 query,
                 attributes);
@@ -54,7 +54,7 @@ namespace SKFProductAssistant.Function.Products
         async Task<HashSet<AttributeDetail>> LoadAllAttributeDetailsAsync(
             string productName)
         {
-            string basePath = Environment.GetEnvironmentVariable("HOME")
+            string basePath = Environment.GetEnvironmentVariable("AzureWebJobsScriptRoot")
                               ?? Directory.GetCurrentDirectory();
             string filePath = Path.Combine(basePath, "Products", "datasheets", $"{productName}.json");
             if (!File.Exists(filePath))

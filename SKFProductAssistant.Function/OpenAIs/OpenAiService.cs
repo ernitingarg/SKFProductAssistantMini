@@ -53,7 +53,7 @@ namespace SKFProductAssistant.Function.OpenAIs
             {
                 _logger.LogInformation("Extracting product name for the user query.");
 
-                var hashedKey = QueryHelper.HashQuery(QueryHelper.NormalizeQuery(query));
+                var hashedKey = HashUtils.HashData($"OPENAPI_{QueryUtils.NormalizeQuery(query)}");
 
                 // Retrieve product name from the cache
                 string result = await _cacheService.GetAsync<string>(hashedKey);

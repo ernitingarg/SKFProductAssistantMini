@@ -2,45 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace SKFProductAssistant.Function.Utils
 {
     /// <summary>
-    /// Utility for query normalization, hashing,
+    /// Utility for query normalization,
     /// and extracting attribute details.
     /// </summary>
-    public static class QueryHelper
+    public static class QueryUtils
     {
         // Precompiled regex for stop words
         static readonly Regex StopWordsRegex = new(
-            @"\b(?:what|is|what's|the|of|for|from|in|to|a|an|about|tell|me|this|give|value)\b",
+            @"\b(?:what|is|\'s|the|of|for|from|in|to|a|an|about|tell|me|this|give|value)\b",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        /// <summary>
-        /// Hashes the given query.
-        /// </summary>
-        /// <param name="query">
-        /// The input query to hash.
-        /// </param>
-        /// <returns>
-        /// A Base64-encoded SHA256 hash of the query.
-        /// </returns>
-        public static string HashQuery(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return string.Empty;
-            }
-
-            byte[] queryBytes = Encoding.UTF8.GetBytes(query);
-            using var sha256 = SHA256.Create();
-            byte[] hashBytes = sha256.ComputeHash(queryBytes);
-
-            return Convert.ToBase64String(hashBytes);
-        }
 
         /// <summary>
         /// Normalizes a query by removing stop words, punctuation,
